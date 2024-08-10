@@ -1,0 +1,19 @@
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
+        <div class="d-flex">
+            <% if (!user) { %>
+                <a href="/login" class="btn btn-primary btn-sm me-2">Sign In</a>
+                <button class="btn btn-secondary btn-sm" disabled>Not Signed In</button>
+            <% } else { %>
+                <span class="navbar-text me-2">Welcome, <%= user %></span>
+                <a href="/logout" id="logoutBtn" class="btn btn-danger btn-sm" onclick="updateLogoutButton()">Sign Out</a>
+
+            <% } %>
+        </div>
+        <a class="navbar-brand" href="/home" style="flex-grow: 1; text-align: center;">
+            <img src="/images/logo.jpg" alt="Adopt A Cat/Dog Logo" style="height: 75px; vertical-align: middle;">
+            ADOPT-A-PET
+        </a>
+        <div id="time" class="time-display"></div>
+    </nav>
+</header>

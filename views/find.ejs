@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find a Dog/Cat - ADOPT-A-PET</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navbar-brand {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .navbar-brand img {
+            margin-right: 10px;
+        }
+
+        .active-link {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: black;
+            color: white;
+            text-align: center;
+        }
+
+        .time-display {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-right: 20px;
+            /* Add some space between time and navbar items */
+        }
+
+        .pet-card {
+            margin: 15px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .pet-card img {
+            width: 100%;
+            height: auto;
+        }
+
+        .error {
+            color: red;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <!-- Header -->
+        <%- include('partials/header') %>
+
+
+        <!-- Main layout: side menu and content area -->
+        <div class="row">
+            <!-- Side Menu -->
+            <nav class="col-md-3 bg-light">
+                <div class="list-group">
+                    <a href="/home" class="list-group-item list-group-item-action">Home</a>
+                    <a href="/createaccount" class="list-group-item list-group-item-action">Create Account</a>
+                    <a href="/find" class="list-group-item list-group-item-action  active-link">Find a dog/cat</a>
+                    <a href="/dog" class="list-group-item list-group-item-action">Dog Care</a>
+                    <a href="/cat" class="list-group-item list-group-item-action">Cat Care</a>
+                    <a href="/giveaway" class="list-group-item list-group-item-action">Have a pet to give away</a>
+                    <a href="/contactus" class="list-group-item list-group-item-action">Contact Us</a>
+                </div>
+            </nav>
+
+            <!-- Content Area -->
+            <main class="col-md-9">
+                <h1>Find a Dog/Cat</h1>
+                <p>Use the form below to find pets available for adoption.</p>
+
+                <!-- Form for finding a pet -->
+                <form id="findForm" method="POST" action="/find">
+                    <div class="mb-3">
+                        <label for="petType" class="form-label">Cat or Dog</label>
+                        <select class="form-select" id="petType" name="petType">
+                            <option value="">Choose...</option>
+                            <option value="cat">Cat</option>
+                            <option value="dog">Dog</option>
+                        </select>
+                        <div id="petTypeError" class="error"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="breed" class="form-label">Breed</label>
+                        <input type="text" class="form-control" id="breed" name="breed" placeholder="Breed (optional)">
+                    </div>
+                    <div class="mb-3">
+                        <label for="age" class="form-label">Age of Animal</label>
+                        <select class="form-select" id="age" name="age">
+                            <option value="">Choose...</option>
+                            <option value="puppy/kitten">Puppy/Kitten</option>
+                            <option value="young">Young</option>
+                            <option value="adult">Adult</option>
+                            <option value="senior">Senior</option>
+                        </select>
+                        <div id="ageError" class="error"></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="gender" class="form-label">Gender</label>
+                        <select class="form-select" id="gender" name="gender">
+                            <option value="">Choose...</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="any">Doesn't matter</option>
+                        </select>
+                        <div id="genderError" class="error"></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="reset" class="btn btn-secondary">Clear</button>
+                </form>
+
+                <!-- Section to display the search results -->
+                <% if (pets.length> 0) { %>
+                    <h2>Available Pets</h2>
+                    <div class="row">
+                        <% pets.forEach(pet=> { %>
+                            <div class="col-md-4">
+                                <div class="pet-card">
+                                    <img src="/Images/<%= pet.image %>" alt="<%= pet.breed %>">
+                                    <h5>
+                                        <%= pet.breed %>
+                                    </h5>
+                                    <p>Type: <%= pet.type %>
+                                    </p>
+                                    <p>Age: <%= pet.age %>
+                                    </p>
+                                    <p>Gender: <%= pet.gender %>
+                                    </p>
+                                    <p>Comments: <%= pet.comments %>
+                                    </p>
+                                
+                                </div>
+                            </div>
+                            <% }) %>
+                    </div>
+                    <% } else { %>
+                        <p>No pets found matching the criteria.</p>
+                        <% } %>
+            </main>
+        </div>
+
+        <!-- Footer -->
+        <footer class="bg-dark text-white text-center p-3 mt-4">
+            © 2024 ADOPT-A-PET. All rights reserved.
+            <p>We assure users that their information will not be sold or misused, and we protect the website builder
+                from any incorrect information posted by pet owners.</p>
+        </footer>
+    </div>
+
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString();
+            const dateString = now.toLocaleDateString();
+            document.getElementById('time').innerHTML = dateString + ' ' + timeString;
+        }
+        setInterval(updateTime, 1000);
+        updateTime(); 
+    </script>
+    <script src="/js/find.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

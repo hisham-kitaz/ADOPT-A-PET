@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADOPT-A-PET</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navbar-brand {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .navbar-brand img {
+            margin-right: 10px;
+        }
+
+        .active-link {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: black;
+            color: white;
+            text-align: center;
+        }
+
+        .center-image {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .time-display {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <%- include('partials/header') %>
+
+        <div class="row">
+            <!-- Side Menu -->
+            <nav class="col-md-3 bg-light">
+                <div class="list-group">
+                    <a href="/home" class="list-group-item list-group-item-action">Home</a>
+                    <a href="/createaccount" class="list-group-item list-group-item-action">Create Account</a>
+                    <a href="/find" class="list-group-item list-group-item-action">Find a dog/cat</a>
+                    <a href="/dog" class="list-group-item list-group-item-action active-link">Dog Care</a>
+                    <a href="/cat" class="list-group-item list-group-item-action">Cat Care</a>
+                    <a href="/giveaway" class="list-group-item list-group-item-action">Have a pet to give away</a>
+                    <a href="/contactus" class="list-group-item list-group-item-action">Contact Us</a>
+                </div>
+            </nav>
+
+            <!-- Content Area -->
+            <main class="col-md-9">
+                <div style="text-align: center;">
+                    <img src="/Images/dog.jpg" alt="Dog" class="center-image"
+                        style="height: 250px; vertical-align: middle;">
+                    <p style="font-size: small; color: grey;">Image credits: CanineStyles</p>
+                </div>
+                <h1>Dog Care Tips</h1>
+                <p>Proper dog care is crucial to ensure that your pet lives a healthy and happy life. Below are some
+                    essential tips for caring for your dog:</p>
+                <ul>
+                    <li><strong>Regular Vet Visits:</strong> Ensure your dog visits the veterinarian annually for a
+                        check-up and vaccinations.</li>
+                    <li><strong>Proper Nutrition:</strong> Feed your dog a balanced diet suited to their age, health
+                        status, and activity level.</li>
+                    <li><strong>Exercise:</strong> Regular exercise helps keep your dog healthy. Aim for at least 30
+                        minutes to 2 hours of activity each day depending on the breed.</li>
+                    <li><strong>Grooming:</strong> Regular grooming, including brushing and bathing, is essential,
+                        especially for breeds with long hair.</li>
+                    <li><strong>Mental Stimulation:</strong> Keep your dog's mind active with toys, training, and plenty
+                        of play.</li>
+                </ul>
+                <p>For more detailed guidance on dog care, visit <a href="https://www.akc.org/dog-care/">American Kennel
+                        Club's Dog Care</a>, or visit <a
+                        href="https://www.caninestyles.com/blogs/news/the-essential-guide-to-dog-care-10-tips-for-happy-and-healthy-dogs">The
+                        Essential Guide to Dog Care by CanineStyles</a></p>
+            </main>
+        </div>
+
+        <%- include('partials/footer') %>
+        <script>
+            function updateTime() {
+                const now = new Date();
+                const timeString = now.toLocaleTimeString();
+                const dateString = now.toLocaleDateString();
+                document.getElementById('time').innerHTML = dateString + ' ' + timeString;
+            }
+            setInterval(updateTime, 1000); 
+            updateTime(); 
+        </script>
+</body>
+
+</html>

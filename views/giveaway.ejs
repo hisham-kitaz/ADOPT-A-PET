@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADOPT-A-PET</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navbar-brand {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .navbar-brand img {
+            margin-right: 10px;
+        }
+
+        .active-link {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: black;
+            color: white;
+            text-align: center;
+        }
+
+        .time-display {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-right: 20px;
+        }
+
+        .error {
+            color: red;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        .success-message {
+            color: green;
+            font-size: 1em;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <%- include('partials/header') %>
+
+    <!-- Main layout: side menu and content area -->
+    <div class="row">
+        <!-- Side Menu -->
+        <nav class="col-md-3 bg-light">
+            <div class="list-group">
+                <a href="/home" class="list-group-item list-group-item-action">Home</a>
+                <a href="/createaccount" class="list-group-item list-group-item-action">Create Account</a>
+                <a href="/find" class="list-group-item list-group-item-action">Find a dog/cat</a>
+                <a href="/dog" class="list-group-item list-group-item-action">Dog Care</a>
+                <a href="/cat" class="list-group-item list-group-item-action">Cat Care</a>
+                <a href="/giveaway" class="list-group-item list-group-item-action active-link">Have a pet to give
+                    away</a>
+                <a href="/contactus" class="list-group-item list-group-item-action">Contact Us</a>
+            </div>
+        </nav>
+
+        <!-- Content Area -->
+        <main class="col-md-9">
+            <h1>Have a Pet to Give Away</h1>
+            <% if (message) { %>
+                <p class="success-message"><%= message %></p>
+            <% } %>
+            <form id="giveawayForm" action="/register-pet" method="POST">
+                <div class="mb-3">
+                    <label for="petType" class="form-label">Cat or Dog</label>
+                    <select class="form-select" id="petType" name="petType" required>
+                        <option value="">Choose...</option>
+                        <option value="cat">Cat</option>
+                        <option value="dog">Dog</option>
+                    </select>
+                    <div id="petTypeError" class="error"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="breed" class="form-label">Breed of the pet</label>
+                    <input type="text" class="form-control" id="breed" name="breed" placeholder="Breed or mix" required>
+                    <div id="breedError" class="error"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="age" class="form-label">Age of Animal</label>
+                    <select class="form-select" id="age" name="age" required>
+                        <option value="">Choose...</option>
+                        <option value="puppy/kitten">Puppy/Kitten</option>
+                        <option value="young">Young</option>
+                        <option value="adult">Adult</option>
+                        <option value="senior">Senior</option>
+                    </select>
+                    <div id="ageError" class="error"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="gender" class="form-label">Animal Gender</label>
+                    <select class="form-select" id="gender" name="gender" required>
+                        <option value="">Choose...</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                    <div id="genderError" class="error"></div>
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="dogs" name="dogs">
+                    <label class="form-check-label" for="dogs">Gets along with other dogs</label>
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="cats" name="cats">
+                    <label class="form-check-label" for="cats">Gets along with other cats</label>
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="children" name="children">
+                    <label class="form-check-label" for="children">Suitable for a family with small children</label>
+                </div>
+                <div class="mb-3">
+                    <label for="comment" class="form-label">Comment about the pet</label>
+                    <textarea class="form-control" id="comment" name="comments" rows="3" required></textarea>
+                    <div id="commentError" class="error"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="ownerName" class="form-label">Owner's Name</label>
+                    <input type="text" class="form-control" id="ownerName" name="ownerName" placeholder="First and Last Name" required>
+                    <div id="ownerNameError" class="error"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="ownerEmail" class="form-label">Owner's Email</label>
+                    <input type="email" class="form-control" id="ownerEmail" name="ownerEmail" placeholder="email@example.com" required>
+                    <div id="ownerEmailError" class="error"></div>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="reset" class="btn btn-secondary">Clear</button>
+            </form>
+        </main>
+    </div>
+
+    <%- include('partials/footer') %>
+
+    <script src="/js/giveaway.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
